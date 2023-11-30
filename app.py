@@ -57,7 +57,7 @@ class Message(db.Model):
     sender = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(80), nullable=False)
     title = db.Column(db.String(80), nullable=False)
-    message = db.Column(db.String, nulllable=False)
+    message = db.Column(db.String, nullable=False)
     priority = db.Column(db.String(20))
 
     def __repr__(self):
