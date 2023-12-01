@@ -3,9 +3,7 @@
 # Import necesary libraries
 from flask import Flask, flash, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
 from dotenv import load_dotenv
-from datetime import datetime
 import os
 
 # Initialize Flask application
@@ -23,44 +21,8 @@ app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 # Initialize database
 db = SQLAlchemy(app)
 
-# Define 'User' class to represent the 'users' table in the database
-class User(db.Model, UserMixin):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(80), nullable=False, unique=True)
-    password_hash = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        return f"User <{self.username}>"
-    
-# Define 'Article' class to represent the 'articles' table in the database
-class Article(db.Model):
-    __tablename__ = "articles"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=False)
-    content = db.Column(db.String, nullable=False)
-    created_on = db.Column(db.DateTime, default=datetime.now())
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
-    author = db.Column(db.String, nullable=False)
-
-    def __repr__(self):
-        return f"Article: <{self.title}>"
-
-# Define 'Message' class to store contact form messages in the 'messages' table
-class Message(db.Model):
-    __tablename__ = "messages"
-    id = db.Column(db.Integer, primary_key=True)
-    sender = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(80), nullable=False)
-    title = db.Column(db.String(80), nullable=False)
-    message = db.Column(db.String, nullable=False)
-    priority = db.Column(db.String(20))
-
-    def __repr__(self):
-        return f"Message: <{self.title}>"
+# Import models
+from models import User, Article, Message
     
 # Define function to initialize database creating the tables
 def create_tables():
