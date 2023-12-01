@@ -14,7 +14,7 @@ app = Flask(__name__)
 # Load the environment variables from the .env file
 load_dotenv()  
 
-# Configure database
+# Configure the database connection
 base_dir = os.path.dirname(os.path.realpath(__file__))
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(base_dir, 'renewable_energy_blog.db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -22,7 +22,6 @@ app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
 # Initialize database
 db = SQLAlchemy(app)
-db.init__app(app)
 
 # Define 'User' class to represent the 'users' table in the database
 class User(db.Model, UserMixin):
@@ -43,8 +42,8 @@ class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     content = db.Column(db.String, nullable=False)
-    created_on = db.Column(db.Datetime, default=datetime.now())
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), unique=False, nullable=False)
+    created_on = db.Column(db.DateTime, default=datetime.now())
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
     author = db.Column(db.String, nullable=False)
 
     def __repr__(self):
@@ -63,12 +62,15 @@ class Message(db.Model):
     def __repr__(self):
         return f"Message: <{self.title}>"
     
-# Initialize and create database tables from models if they don't already exist
-@app.before_first_request
+# Define function to initialize database creating the tables
 def create_tables():
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 
-# Define route for the homepage, displaying a list of articles
+# Call the function to create database tables
+create_tables()
+
+# Initialize database tables at app startup
 @app.route('/')
 def index():
     articles = Article.query.all()
@@ -77,7 +79,7 @@ def index():
     }
     return render_template('index.html', **context)
 
-# Route definition for the 'About' page
+# Define route for the 'About' page
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -86,21 +88,21 @@ def about():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        # Extracting data from the contact form
+        # Extract data from the contact form
         sender = request.form.get('name')
         email = request.form.get('email')
         title = request.form.get('title')
         message = request.form.get('message')
         priority = request.form.get('priority')
 
-        # Creating a new message record and saving it to the database
+        # Create a new message record and saving it to the database
         new_message = Message(sender=sender, email=email,
                                 title=title, message=message,
                                 priority=priority)
         db.session.add(new_message)
         db.session.commit()
 
-        # Notification for successful message submission
+        # Notify for successful message submission
         flash("Message sent. Thanks for reaching out!")
         return redirect(url_for('index'))
     
