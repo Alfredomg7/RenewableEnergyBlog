@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Greeting Message -->
+    {% if current_user.is_authenticated %}
+        <h2>Welcome to the Renewable Energy Blog, {{ current_user.username }}!
+            <span class="emojis">☀️🌀🌋🌊♻️</span>
+        </h2>
+    {% else %}
+        <h2>Welcome to the Renewable Energy Blog!
+            <span class="emojis">☀️🌀🌋🌊♻️</span>
+        </h2>
+    {% endif %}
+
+    <!-- Article Section -->
+    {% if articles %}
+        <!-- Loop through each article and display a preview -->
+        {% for article in articles %}
+            <div class="post-preview">
+                <a href="{{ url_for('article', id=article.id )}}">
+                    <h2 class="article-title">{{ article.title }}</h2>
+                </a>
+                <p class="article-meta">
+                    Posted by <a href="#">{{ article.author }}</a> on {{ article.created_on.strftime('%d/%b/%Y') }}
+                </p>
+                <p>
+                    {{article.content[0:100] }}... <a href="{{ url_for('article', id=article_id) }}">Read More</a>
+                </p>
+            </div>
+        {% endfor %}
+        <br>
+
+        <!-- Contribute Button or Login Prompt -->
+        {% if current_user.is_authenticated %}
+            <p><a href="{{ url_for('contribute') }}" class="button">Contribute</a></p>
+        {% else %}
+            <p>Fancy sharing your thoughts with the Renewable Energy Blog
+                <a href="{{ url_for('login') }}">Log In</a> to join us 🤗
+            </p>
+        {% endif %}
+    {% else %}
+        <!-- No Articles Message -->
+        <p>No articles have been uploaded yet.
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('contribute') }}">Create One</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Log In</a> to create one.
+            {% endif %}
+        </p>
+    {% endif %}
+{% endblock content %}
