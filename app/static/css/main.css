@@ -1,0 +1,167 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    text-align: center;
+    background-color: #f4f4f4;
+    color: #333333; 
+    font-size: 18px;
+  }
+  
+  header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #4CAF50;
+    min-height: 60px;
+  }
+  
+  header > * {
+    flex: 1 1 auto;
+  }
+  
+  .nav-item,
+  .logo {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  header a {
+    margin: 10px;
+    color: #f4f4f4;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  
+  header a:hover {
+    color: #8BC34A;
+    transition: 0.3s;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #4CAF50;
+  }
+  
+  a:hover {
+    color: #8BC34A;
+    transition: 0.3s;
+  }
+  
+  .wave {
+    animation-name: wave-animation;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    transform-origin: 70% 70%;
+    display: inline-block;
+  }
+  
+  @keyframes wave-animation {
+    0%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+  }
+  
+.emojis {
+    font-size: 1.5em;
+    vertical-align: middle; 
+    margin-left: 5px;
+    animation: emoji-animation 1.5s infinite;
+  }
+  
+  @keyframes emoji-animation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+  
+  .container {
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+  }
+  
+  .form-control,
+  .article-control {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .button {
+    background-color: #4CAF50; 
+    color: #f4f4f4; 
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .button:hover {
+    background-color: #8BC34A; 
+    transition: 0.3s;
+  }
+  
+  .table_wrapper {
+    width: 100%;
+    margin: auto;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc; 
+  }
+  
+  th {
+    background-color: #4CAF50; 
+    color: #f4f4f4;
+  }
+  
+  .profile_pic {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+  }
+  
+  p {
+    margin: 1em;
+  }
+  
+  footer {
+    color: #333333; 
+    background-color: #f4f4f4; 
+    padding: 20px;
+  }
+  
+  .github, .linkedin {
+    text-decoration: none;
+    color: #1da1f2;
+  }
+  
+  @media (max-width: 840px) {
+    .container {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  
