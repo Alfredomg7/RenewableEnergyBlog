@@ -107,3 +107,10 @@ def login():
     
     # Render the login template if method is GET or credentials are invalid
     return render_template('login.html')
+
+# Route for handle user logout
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash("You have been logged out.")
+    return redirect(url_for('index'))
