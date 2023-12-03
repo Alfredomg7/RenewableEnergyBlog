@@ -164,4 +164,37 @@ def contribute():
     # Render the form template for submitting a new article
     return render_template('contribute.html')
 
+# Route to edit an existing article, accessible only to logged-in users
+@app.route('/edit/<int:id>/', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    # Fetch the article from the database or return a 404 error if not found
+    article_to_edit = Article.query.get_or_404(id)
+
+    # Check if the current logged-in user is the author of the article
+    if current_user.username == article_to_edit.author:
+        # Handle form submission for editing the article
+        if request.method == 'POST':
+            # Update article data with the submitted form data
+            article_to_edit.title = request.form.get('title')
+            article_to_edit.content = request.form.get('content')
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Notify the user of successful update and redirect to the article view
+            flash("Your changes have been saved.")
+            return redirect(url_for('article', id=article_to_edit.id))
         
+        # Prepare context with the article data for rendering the edit form
+        context = {
+            'article': article_to_edit
+        }
+
+        # Render the edit template on GET request or if the user is the author
+        return render_template('edit.html', **context)
+    
+    # Notify the user if they are not authorized to edit and redirect to index
+    flash("You cannot edit another user's article.")
+    return redirect(url_for('index'))
+    
