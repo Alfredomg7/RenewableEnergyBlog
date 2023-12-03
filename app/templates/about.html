@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Personalized Greeting -->
+    {% if current_user.is_authenticated %}
+        <h2>Hello, {{current_user.username }}! <span class="wave">👋</span></h2>
+    {% else %}
+        <h2>Hello and Welcome! <span class="wave">👋</span></h2>
+    {% endif %}
+
+    <!-- Blog Description -->
+    <p>
+        The Renewable Energy Blog is a platfom to explore and share insights 
+        about renewable energy, sustainability, and eco-friendl technologies.
+    </p>
+    <p>
+        Feel free to read and learn from our articles. 
+        If you want to continue contribute your own insights, please
+        <a href="{{ url_for('login') }}">log in</a>.
+    </p>
+    <br />
+    <!-- Profile Picture -->
+    <div>
+        <a href="{{url_for('contact')}}">
+            <img
+                src="{{ url_for('static', filename='images/profile.jpg')}}"
+                class="profile_pic"
+                alt="Profile Picture"
+                width="300"
+            />
+        </a>
+    </div>
+
+    <!-- Host Information -->
+    <p>
+        The Renewable Energy is hosted by Alfredo Muñoz Gutierrez, a passionate renewable energy engineer and software developer
+        You can learn more about me on <a href="https://www.linkedin.com/in/alfredo-munoz-gutierrez/" target="_blank">LinkedIn</a>  and <a href="https://github.com/Alfredomg7" target="_blank">GitHub</a>, 
+        or feel free to send a message <a href="{{url_for('contact')}}">here</a>.
+    </p>
