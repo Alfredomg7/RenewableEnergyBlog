@@ -4,27 +4,20 @@
 The Renewable Energy Blog is a Flask-based web application that follows the MVC pattern. It's designed for sharing and discussing insights about renewable energy. This interactive blog allows users to read articles, contribute new content, and engage with the community.
 
 ## Project Structure
-+ **run.py`:** Entry point of the application.
-+ **``app/`:** Main application directory.
++ **`run.py`:** Entry point of the application.
++ **`app/`:** Main application directory.
 + **`__init__.py`:** Initializes the Flask app, database, and login manager.
 + **`templates/`:** Contains HTML templates.
 + **`static/`:**
-    +
-**`css/`:** Contains CSS files for styling.
-    +
-**`images/`:** Directory for storing images.
-    +
-**`js/`:** JavaScript files for front-end functionality.
-+ **`routes/:**
-    +
-**`main.py`**: Contains all the routes and core logic.
-    +
-**`__init__.py`**: Initialization module for routes.
-models/:
-    +
-**`user.py`, `article.py`, `message.py:`** Modules for the respective database tables.
-    +
-**`__init__.py`:** Initialization module for models.
+    + **`css/`:** Contains CSS files for styling.
+    + **`images/`:** Directory for storing images.
+    + **`js/`:** JavaScript files for front-end functionality.
++ **`routes/:`**
+    + **`main.py`**: Contains all the routes and core logic.
+    + **`__init__.py`**: Initialization module for routes.
++ **`models/:`**
+   + **`user.py`, `article.py`, `message.py:`** Modules for the respective database tables.
+   + **`__init__.py`:** Initialization module for models.
 + **`renewable_energy_blog.db`:** SQLite3 database file.
 + **`requirements.txt`:** Lists all the Python dependencies.
 + **`.gitignore`:** Specifies untracked files to ignore.
