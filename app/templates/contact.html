@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Contact Form -->
+    <form action="{{ url_for('contact') }}" method="POST">
+        <div class="form-group">
+            <h3>Your Feedback is Very Welcome!</h3>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                placeholder="Your Name Here"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+                name="message"
+                id="message"
+                cols="30"
+                rows="10"
+                class="form-control"
+                placeholder="Your Message Here"
+                required
+            ></textarea>
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority" class="form-control">
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Send" class="button" />
+        </div>
+    </form>
+    <br />
+
+    <!-- Alternative Contact Information -->
+    <p>
+        Alternatively, you can reach out to us on
+        <a href="https://github.com/Alfredomg7" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/alfredo-munoz-gutierrez/" target="_blank">LinkedIn</a> or via email at
+        <a href="mailto:alfredomg4000@gmail.com">alfredomg4000@gmail.com</a>
+    </p>
+{% endblock content %}
