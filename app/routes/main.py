@@ -128,3 +128,40 @@ def article(id):
 
     # Render the article template, passing in the context which includes the article data
     return render_template('article.html', **context)
+
+# Route for creating a new article, accesible only to logged-in users
+@app.route('/contribute', methods=['GET', 'POST'])
+@login_required
+def contribute():
+    # Handle form submission for creating a new article
+    if request.method == 'POST':
+        # Extract article data from the submmited form
+        title = request.form.get('title')
+        content = request.form.get('content')
+        user_id = current_user.id
+        author = current_user.username
+
+        # Check if an article with the same title already exists
+        title_exists = Article.query.filter_by(title=title).first()
+        if title_exists:
+            # Inform the user and redirect to the contribute page again
+            flash("This article already exists. Please choose a new title.")
+            return redirect(url_for('contribute'))
+        
+        # Create a new Article record
+        new_article = Article(title=title, content=content,
+                              user_id = user_id, author=author)
+
+        
+        # Add the new article to the database
+        db.session.add(new_article)
+        db.session.commit()
+
+        # Notify the user of successful submission and redirect to the index page
+        flash("Thanks for colaborating with Renewable Energy Blog!")
+        return redirect(url_for('index'))
+    
+    # Render the form template for submitting a new article
+    return render_template('contribute.html')
+
+        
