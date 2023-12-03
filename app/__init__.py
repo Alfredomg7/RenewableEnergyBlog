@@ -1,6 +1,7 @@
 # Import necessary modules
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from dotenv import load_dotenv
 import os
 
@@ -17,6 +18,9 @@ app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
 # Initialize SQLAlchemy with the Flask application
 db = SQLAlchemy(app)
+
+# Initialize Login Manager
+login_manager = LoginManager(app)
 
 # Import model
 from app.models import User, Article, Message
