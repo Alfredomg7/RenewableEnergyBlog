@@ -40,7 +40,7 @@ def contact():
     return render_template('contact.html')
 
 # Route for handle user registration
-@app.route('signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def register():
     # Handle POST request: user registration
     if request.method == "POST":
@@ -83,7 +83,7 @@ def register():
     return render_template('signup.html')
 
 # Route for handle user login
-@app.route('login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     # Check if the request method is POST (form submission)
     if request.method == 'POST':
@@ -114,3 +114,17 @@ def logout():
     logout_user()
     flash("You have been logged out.")
     return redirect(url_for('index'))
+
+# Route for displaying a specific article by its ID
+@app.route('/article/<int:id>/')
+def article(id):
+    # Fetch the article from the database or return a 404 error if not found
+    article = Article.query.get_or_404(id)
+
+    # Preparing the context to be passed to the template
+    context = {
+        "article": article
+    }
+
+    # Render the article template, passing in the context which includes the article data
+    return render_template('article.html', **context)
