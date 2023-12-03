@@ -81,3 +81,29 @@ def register():
     
     # Render the signup template on GET request
     return render_template('signup.html')
+
+# Route for handle user login
+@app.route('login', methods=['GET', 'POST'])
+def login():
+    # Check if the request method is POST (form submission)
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # Query the database for the user
+        user = User.query.filter_by(username=username).first()
+
+        # Check if user exists and password is correct
+        if user and check_password_hash(user.password_hash, password):
+            # Log in the user and redirect to the index page
+            login_user(user)
+            flash("You are now logged in.")
+            return redirect(url_for('index'))
+    
+        # If user does not exist or password is incorrect
+        else:
+            flash("Username or Password not valid.")
+            return redirect(url_for('login'))
+    
+    # Render the login template if method is GET or credentials are invalid
+    return render_template('login.html')
