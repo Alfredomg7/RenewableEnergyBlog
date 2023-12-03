@@ -198,3 +198,23 @@ def edit(id):
     flash("You cannot edit another user's article.")
     return redirect(url_for('index'))
     
+# Route to delete an existing article, accessible only to logged-in users
+@app.route('/delete/<int:id>', methods=['GET'])
+@login_required
+def delete(id):
+    # Fetch the article from the database or return a 404 error if not found
+    article_to_delete = Article.query.get_or_404(id)
+
+    # Check if the current logged-in user is the author of the article
+    if current_user.username == article_to_delete.author:
+        # Delete the article from the database
+        db.session.delete(article_to_delete)
+        db.session.commit()
+
+        # Notify the user of succesful deletion
+        flash("Article succesfully deleted.")
+        return redirect(url_for('index'))
+    
+    # Notify the user if they are not authorized to delete and redirect to index
+    flash("You cannot delete another user's article.")
+    return redirect(url_for('index'))
