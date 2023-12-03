@@ -32,7 +32,7 @@
                 <a href="{{url_for('contact')}}">Contact</a>
                 <a href="{{url_for('register')}}">Sign Up</a>
                 <a href="{{url_for('login')}}">Log In</a>    
-                {$ endif %}
+                {% endif %}
             </div>
         </header>
         {% with messages = get_flashed_messages() %} {% if messages %}
@@ -57,9 +57,9 @@
             <p class="footer">
                 <a href="https://github.com/Alfredomg7" class="github" target="_blank">Alfredomg7</a>
                 <a href="https://www.linkedin.com/in/alfredo-munoz-gutierrez" class="linkedin" target="_blank">LinkedIn</a>    
-                <script src="{{ url_for('static', filename='js/footer.js') }}"></script>
                 <span id="current-year"></span>
             </p>
         </footer>
+        <script src="{{ url_for('static', filename='js/footer.js') }}"></script>
     </body>
 </html>
