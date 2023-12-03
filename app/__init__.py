@@ -31,3 +31,8 @@ with app.app_context():
     
 # Import route handlers from
 from app.routes import main
+
+# User loader function for LoginManager
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
