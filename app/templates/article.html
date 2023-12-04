@@ -3,8 +3,8 @@
 {% block content %}
     <h1>{{ article.title }}</h1>
     <h3>By {{ article.author }}</h3>
-    <p class="article-content"><pre>{{article.content}}</pre></p>
-    <h4>Published on {{ article.created_on.strftime('%d/%b/%Y) }}</h4>
+    <p class="article-content">{{article.content}}</p>
+    <h4>Published on {{ article.created_on.strftime('%d/%b/%Y') }}</h4>
     
          {% if current_user.is_authenticated and current_user.id == article.user_id %}
          <a class="button" href="{{ url_for('edit', id=article.id) }}">Update</a>
