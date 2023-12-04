@@ -2,7 +2,7 @@
 
 {% block content %}
     <!-- Edit Article Form -->
-    <form action="{{ url_for('edit_article', article_id=article.id) }}" method="POST">
+    <form action="{{ url_for('edit', id=article.id) }}" method="POST">
         <div class="form-group">
             <h3>Edit Your Article</h3>
         </div>
