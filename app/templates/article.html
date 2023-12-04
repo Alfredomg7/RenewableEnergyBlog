@@ -6,8 +6,8 @@
     <p class="article-content"><pre>{{article.content}}</pre></p>
     <h4>Published on {{ article.created_on.strftime('%d/%b/%Y) }}</h4>
     
-    {% if current_user.is_authenticated and current_user.id == article.user_id %}
-    <a class="button" href="{{ url_for('edit_article', article_id=article.id) }}">Update</a>
-    <a class="button" href="{{ url_for('delete_article', article_id=article.id) }}">Delete</a>
-    {% endif %}
+    <!-- {% if current_user.is_authenticated and current_user.id == article.user_id %} !-->
+    <!-- <a class="button" href="{{ url_for('edit', id=article.id) }}">Update</a> !-->
+    <!-- <a class="button" href="{{ url_for('delete', id=article.id) }}">Delete</a> !-->
+    <!-- {% endif %} !-->
 {% endblock content %}
